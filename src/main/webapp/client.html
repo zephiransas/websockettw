@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    
+    <script language="javascript">
+        var wsUri = "ws://localhost:8080/websockettw/twitter";
+        var websocket = new WebSocket(wsUri);
+        var numberOfMessage = 0;
+        websocket.onopen = function() {  
+            writeToScreen("CONNECTED");
+        };
+        websocket.onmessage = function(evt) { 
+            writeToScreen(evt.data);
+            numberOfMessage++;
+        };
+        websocket.onerror = function(evt) {
+            writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+        };
+        
+        function writeToScreen(messages) {
+            var table = document.getElementById("TBL");
+            var row = table.insertRow(0); 
+            var cell1 = row.insertCell(0);
+            var textNode = document.createTextNode(messages);
+            var z = numberOfMessage%2;
+            if(z==1){
+                cell1.style.backgroundColor="#ADD8E6" ;
+            }
+            cell1.appendChild(textNode);
+        }
+ 
+    </script>
+    
+    <body>
+        <div>WebSocket Test</div>
+        
+        <table id="TBL" border="1">
+        </table>
+        
+    </body>
+</html>
