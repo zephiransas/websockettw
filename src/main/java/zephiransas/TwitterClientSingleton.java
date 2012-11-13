@@ -39,7 +39,7 @@ public class TwitterClientSingleton extends StatusAdapter {
     @Override
     public void onStatus(Status status) {
         User user = status.getUser();
-        //if(user.getLang().equals("ja")) {
+        if(user.getLang().equals("ja")) {
             String tweet = "@" + user.getScreenName() + ":" + status.getText();
             for(Session peer : peers) {
                 try {
@@ -48,7 +48,7 @@ public class TwitterClientSingleton extends StatusAdapter {
                     ex.printStackTrace();
                 }
             }
-        //}
+        }
     }
     
 }
